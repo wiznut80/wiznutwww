@@ -3,10 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <title>Welcom WiZNUT's home</title>
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-2KV6YC0L8Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'G-2KV6YC0L8Y');
+  </script>
 </head>
 <body>
 Hi there~
 <br>
 ^^
+
+<a href="#" id="testLink">Contact us</a>
+<script>
+  window.addEventListener('load', function () {
+    const mailtoLink = document.getElementById('testLink');
+    if (mailtoLink) {
+      mailtoLink.addEventListener('click', function (event) {
+        console.log('mailtoLink was clicked');  // 로그 추가
+        if (typeof gtag === 'function') {
+          console.log('gtag function is defined and called');  // 로그 추가
+          gtag('event', 'click_link', {
+            'event_name': 'contact-us'
+          });
+        } else {
+          console.error('gtag is not defined');
+        }
+      });
+    }
+  });
+</script>
 </body>
 </html>

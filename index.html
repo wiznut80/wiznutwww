@@ -21,10 +21,11 @@ Hi there~
 
 <a href="#" id="testLink">Contact us</a>
   <br>
-<a href="#" id="testLink" onclick="etag('event','click_link',{'event_name':'abc'})">etag test</a>
+<a href="#" id="testLink2">etag test</a>
 <script>
   window.addEventListener('load', function () {
     const mailtoLink = document.getElementById('testLink');
+    const mailtoLink2 = document.getElementById('testLink2');
     if (mailtoLink) {
       mailtoLink.addEventListener('click', function (event) {
         console.log('mailtoLink was clicked');  // 로그 추가
@@ -32,6 +33,19 @@ Hi there~
           console.log('gtag function is defined and called');  // 로그 추가
           gtag('event', 'click_link', {
             'event_name': 'contact-us'
+          });
+        } else {
+          console.error('gtag is not defined');
+        }
+      });
+    }
+    if (mailtoLink2) {
+      mailtoLink.addEventListener('click', function (event) {
+        console.log('mailtoLink was clicked');  // 로그 추가
+        if (typeof gtag === 'function') {
+          console.log('gtag function is defined and called');  // 로그 추가
+          gtag('event', 'click_link', {
+            'event_name': 'abc'
           });
         } else {
           console.error('gtag is not defined');

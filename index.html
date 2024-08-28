@@ -38,7 +38,7 @@ Hi there~
       button.addEventListener('click', function (event) {
         console.log(`${buttonId} was clicked`);
         if (typeof gtag === 'function') {
-          gtag('event', eventName, {});
+          gtag('event', eventName, {'sustom_param_1': '${buttonId}'});
         } else {
           console.error('gtag is not defined');
         }

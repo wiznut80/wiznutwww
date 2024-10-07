@@ -1,43 +1,34 @@
-export const config = {
-  matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico, sitemap.xml, robots.txt (metadata files)
-     */
-    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',
-  ],
-}
-
-
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import { NextResponse, NextRequest } from 'next/server';
+import { fallbackLng, locales } from '@/utils/localization/settings';
 
 export function middleware(request: NextRequest) {
-  // Assume a "Cookie:nextjs=fast" header to be present on the incoming request
-  // Getting cookies from the request using the `RequestCookies` API
-  let cookie = request.cookies.get('nextjs')
-  console.log(cookie) // => { name: 'nextjs', value: 'fast', Path: '/' }
-  const allCookies = request.cookies.getAll()
-  console.log(allCookies) // => [{ name: 'nextjs', value: 'fast' }]
+  const { pathname, hash } = request.nextUrl;
 
-  request.cookies.has('nextjs') // => true
-  request.cookies.delete('nextjs')
-  request.cookies.has('nextjs') // => false
+  console.info('[middleware]:::::::1::::::', pathname);
 
-  // Setting cookies on the response using the `ResponseCookies` API
-  const response = NextResponse.next()
-  response.cookies.set('vercel', 'fast')
-  response.cookies.set({
-    name: 'vercel',
-    value: 'fast',
-    path: '/',
-  })
-  cookie = response.cookies.get('vercel')
-  console.log(cookie) // => { name: 'vercel', value: 'fast', Path: '/' }
-  // The outgoing response will have a `Set-Cookie:vercel=fast;path=/` header.
+  // Check if the default locale is in the pathname
+  if (pathname === `/`) {
+    console.info('[middleware]:::::::2::::::', `${pathname}${hash}`);
+    // Redirect to the default locale if the path is `/`
+    return NextResponse.redirect(new URL(`/${fallbackLng}${pathname}${hash}`, request.url));
+  }
 
-  return response
+  // Check if the pathname is missing a locale
+  const pathnameIsMissingLocale = locales.every(
+      locale => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
+  );
+
+  if (pathnameIsMissingLocale) {
+    console.info('[middleware]:::::::3::::::', `${pathname}${hash}`);
+    // Rewrite the URL to include the default locale
+    return NextResponse.rewrite(new URL(`/${fallbackLng}${pathname}${hash}`, request.url));
+  }
+
+  console.info('[middleware]:::::::4::::::', `${pathname}${hash}`);
+  // If the pathname includes a locale, continue the request
+  return NextResponse.next();
 }
+
+export const config = {
+  matcher: ['/((?!api|.*\\..*|_next/static|_next/image|manifest.json|assets|favicon.ico|lan).*)']
+};

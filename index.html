@@ -2,82 +2,83 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Welcom WiZNUT's home</title>
-   <script async src="https://www.googletagmanager.com/gtag/js?id=G-2KV6YC0L8Y"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to WiZNUT's Home</title>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2KV6YC0L8Y"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'G-2KV6YC0L8Y');
   </script>
-  <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "oeo3eynddo");
-  </script>
+  <script async src="https://www.clarity.ms/tag/oeo3eynddo"></script>
   <style>
     body {
-        font-family: Arial, sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+      margin: 0;
     }
-    #ip-display {
-        font-size: 24px;
-        color: #333;
+    .container {
+      text-align: center;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    #ip-display, button, a {
+      display: block;
+      font-size: 16px;
+      margin: 10px auto;
+      padding: 10px 20px;
+      color: #fff;
+      background-color: #007BFF;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      cursor: pointer;
+      width: 200px;
+      transition: background-color 0.3s;
+    }
+    button:hover, a:hover {
+      background-color: #0056b3;
     }
   </style>
 </head>
 <body>
-Hi there~
-<div id="ip-display">접속자 IP: 로딩중...</div>
-<br>
-^^
-<br>
-<button id="btn_1" data-event-name="click_event_1">event-test-1</button><br>
-<button id="btn_2" data-event-name="click_event_2">event-test-2</button><br>
-<button id="btn_3" data-event-name="click_event_3">event-test-3</button>
-<a href="#" id="testLink">Contact us</a>
-  <br>
-<a href="#" id="testLink2">etag test</a>
-<script>
-  window.addEventListener('load', function () {
-    const buttons = document.querySelectorAll('button[id^="btn_"]');
-    buttons.forEach(button => {
-      const buttonId = button.id;
-      const eventName = button.getAttribute('data-event-name');
-      if(!eventName) {
-        console.warn(`${buttonId} : data-event-name is not defined`);
-        return;
-      }
-      button.addEventListener('click', function (event) {
-        console.log(`${buttonId} was clicked`);
-        if (typeof gtag === 'function') {
-          gtag('event', eventName, {'sustom_param_1': '${buttonId}'});
-        } else {
-          console.error('gtag is not defined');
-        }
+  <div class="container">
+    <div id="ip-display">접속자 IP: 로딩중...</div>
+    <button id="btn_1" data-event-name="click_event_1">Event Test 1</button>
+    <button id="btn_2" data-event-name="click_event_2">Event Test 2</button>
+    <button id="btn_3" data-event-name="click_event_3">Event Test 3</button>
+    <a href="#" id="testLink">Contact Us</a>
+    <a href="#" id="testLink2">Etag Test</a>
+  </div>
+  
+  <script>
+    window.addEventListener('load', function () {
+      document.querySelectorAll('button[id^="btn_"]').forEach(button => {
+        button.addEventListener('click', function () {
+          if (typeof gtag === 'function') {
+            gtag('event', button.getAttribute('data-event-name'), { 'sustom_param_1': button.id });
+          }
+        });
       });
-    })
-  });
-  async function fetchPublicIP() {
-    try {
+    });
+
+    async function fetchPublicIP() {
+      try {
         const response = await fetch('https://api.ipify.org?format=json');
         const data = await response.json();
         document.getElementById('ip-display').textContent = '접속자 IP: ' + data.ip;
-    } catch (error) {
+      } catch {
         document.getElementById('ip-display').textContent = '접속자 IP: 가져오기 실패';
-        console.error('Failed to get public IP address:', error);
+      }
     }
-  }
-  fetchPublicIP();
-</script>
+    fetchPublicIP();
+  </script>
 </body>
 </html>

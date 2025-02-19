@@ -1,25 +1,10 @@
+<!-- public/404.html -->
 <!DOCTYPE html>
 <html>
-<head>
-  <script>
-    const segmentCount = 1; // 커스텀 도메인 사용 시 0으로 변경
-    const redirect = sessionStorage.redirect;
-    delete sessionStorage.redirect;
-    if (redirect && redirect !== location.href) {
-      history.replaceState(null, null, redirect);
-    }
-  </script>
-</head>
-<body>
-  <script>
-    sessionStorage.redirect = location.href;
-    window.location.replace(
-      location.pathname
-        .split('/')
-        .slice(0, 1 + segmentCount)
-        .concat(['index.html'])
-        .join('/')
-    );
-  </script>
-</body>
+  <head>
+    <script>
+      sessionStorage.redirect = location.href.replace('/index.html', '');
+      location.replace('/index.html');
+    </script>
+  </head>
 </html>

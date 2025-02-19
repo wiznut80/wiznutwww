@@ -29,4 +29,30 @@
       t.src = "https://www.clarity.ms/tag/" + i;
       y = l.getElementsByTagName(r)[0];
       y.parentNode.insertBefore(t, y);
-    })(window, document, "clarity", "script", "oeo3eynddo");</script><script defer="defer" src="/vendors.e346de205d58ff2091e6.js"></script><script defer="defer" src="/vendors.233fbf3901d371369b31.js"></script><script defer="defer" src="/vendors.802fefaa98e77ce59642.js"></script><script defer="defer" src="/vendors.daefe5efe727070a5d19.js"></script><script defer="defer" src="/vendors.9ce4f2075b7dc34d8780.js"></script><script defer="defer" src="/vendors.f20bbd987d770cef49f2.js"></script><script defer="defer" src="/main.bundle.js"></script></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div></body></html>
+    })(window, document, "clarity", "script", "oeo3eynddo");</script><script>// Single Page Apps for GitHub Pages
+    // https://github.com/rafrex/spa-github-pages
+    // Copyright (c) 2016 Rafael Pedicini, licensed under the MIT License
+    // ----------------------------------------------------------------------
+    // This script checks to see if a redirect is present in the query string
+    // and converts it back into the correct url and adds it to the
+    // browser's history using window.history.replaceState(...),
+    // which won't cause the browser to attempt to load the new url.
+    // When the single page app is loaded further down in this file,
+    // the correct url will be waiting in the browser's history for
+    // the single page app to route accordingly.
+    (function (l) {
+      if (l.search) {
+        var q = {};
+        l.search.slice(1).split('&').forEach(function (v) {
+          var a = v.split('=');
+          q[a[0]] = a.slice(1).join('=').replace(/~and~/g, '&');
+        });
+        if (q.p !== undefined) {
+          window.history.replaceState(null, null,
+            l.pathname.slice(0, -1) + (q.p || '') +
+            (q.q ? ('?' + q.q) : '') +
+            l.hash
+          );
+        }
+      }
+    }(window.location))</script><script defer="defer" src="/vendors.e346de205d58ff2091e6.js"></script><script defer="defer" src="/vendors.233fbf3901d371369b31.js"></script><script defer="defer" src="/vendors.802fefaa98e77ce59642.js"></script><script defer="defer" src="/vendors.c71b549057810419e11c.js"></script><script defer="defer" src="/vendors.7e0d79526761bd48fb5f.js"></script><script defer="defer" src="/vendors.f20bbd987d770cef49f2.js"></script><script defer="defer" src="/main.bundle.js"></script></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div></body></html>

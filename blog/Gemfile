@@ -1,0 +1,13 @@
+# frozen_string_literal: true
+
+source "https://rubygems.org"
+# gemspec
+
+gem 'jekyll', '~> 4.3.3'
+gem 'rain', '>= 0'
+gem 'i18n', '~> 1.14.5'
+gem 'rake', '~> 13.2.1'
+gem 'jekyll-feed', '~> 0.15'
+gem 'jekyll-paginate', '~> 1.1.0'
+
+# bundle _1.17.3_ update
